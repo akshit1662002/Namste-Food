@@ -1,31 +1,25 @@
 
-//   const heading = React.createElement("h1", {}, "hello world form react"); // for one div 
-
-// nested div 
 import React from "react";
 import ReactDOM  from "react-dom/client";
 
-const parent = React.createElement(
-    "div",
-    { id: "parent" },[
-    React.createElement(
-      "div",
-      { id: "child" },[
-      React.createElement("h1", {} , "hello world "),
-      React.createElement("h1", {} , "hello akshit r2")
-    ]),
-    React.createElement(
-      "div",
-      { id: "child2" },[
-      React.createElement("h1", {} , "hello akshit"),
-      React.createElement("h1", {} , "hello akshit r2")
-    ])
+ const Children =() =>  (
+    <h1> children component </h1>
+ );
 
-    ]
-    
-  );
-  console.log(parent);
+ const number = 3003 ;
 
-  const root = ReactDOM.createRoot(document.getElementById("root")); 
+ const Parent = () => (
+    <div>
 
-  root.render(parent);
+     { Children()} 
+     <Children/>
+     <Children></Children>
+    <h1> parent component </h1>
+    </div>
+)
+
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+
+root.render(<Parent/>)
