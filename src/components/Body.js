@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard  , {withVegLabel} from "./RestaurantCard";
 import { Link } from "react-router-dom";
 import { useState , useEffect } from "react";
 import Shimmer from "./Shimmer";
@@ -8,6 +8,10 @@ import useOnlineStatus from "../utils/useOnlineStatus";
 const Body = () =>{
 const [listOfRestaurants , setListOfRestaurant ] = useState([])
 const [filteredRestaurant , setFilteredRestaurant] = useState([])
+
+const RestaurantCardVeg = withVegLabel(RestaurantCard);
+
+console.log("body render" , listOfRestaurants);
 
 const [searchText , setSearchText ] = useState("");
 
@@ -60,7 +64,7 @@ if(onlineStatus === false ) return <h1> check your internet connection </h1>;
                const filterList = listOfRestaurants.filter(
                   (res) => res.info.avgRating > 4
                );
-               console.log(filterList);
+               
                setFilteredRestaurant(filterList);
             }}>
             Top rated restaurant 
@@ -72,7 +76,9 @@ if(onlineStatus === false ) return <h1> check your internet connection </h1>;
 
           <div className=" flex flex-wrap "> 
           {filteredRestaurant.map((restaurant) => (
-           <Link  key={restaurant.info.id} to={"/restaurant/" + restaurant.info.id }><RestaurantCard  resData = {restaurant}/></Link>
+           <Link  key={restaurant.info.id} to={"/restaurant/" + restaurant.info.id }>
+            {restaurant.info.veg ? <RestaurantCardVeg  resData = {restaurant} /> :  <RestaurantCard  resData = {restaurant}/> }
+            </Link>
           ) )}
           
         

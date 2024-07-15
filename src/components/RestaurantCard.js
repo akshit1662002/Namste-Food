@@ -16,9 +16,7 @@ const RestaurantCard = (props) => {
            className="rounded-lg"
            alt="res-logo"
            src= { CDN_URL
-            +  cloudinaryImageId }
-           />
-  
+            +  cloudinaryImageId }/>
            <h3 className="font-bold py-4 text-lg"> {name} </h3>
            <h4> {cuisines . join (" , ")} </h4>
            <h4> {avgRating} Star </h4>
@@ -28,6 +26,22 @@ const RestaurantCard = (props) => {
 
          </div>
      )
+  }
+
+  // higher order component 
+  // imput - RestaurantCard ==> RestaurantCardPromoted
+
+  export const withVegLabel = (RestaurantCard) =>{
+   return (props) => {
+      return(
+         <div>
+            <label className=" absolute bg-green-600 text-white m-2 p-2 rounded-lg ">
+               Veg 
+            </label>
+            <RestaurantCard {... props} />
+         </div>
+      )
+   }
   }
 
   export default RestaurantCard ;
