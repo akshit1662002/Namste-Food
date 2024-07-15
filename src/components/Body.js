@@ -23,11 +23,9 @@ const fetchData = async () => {
 
    const json = await data.json(); // convert data into json 
 
-   console.log(json);
-
    // optional chaining 
-   setListOfRestaurant(json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants );
-   setFilteredRestaurant(json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants );
+   setListOfRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants );
+   setFilteredRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
 };
 
 const onlineStatus = useOnlineStatus();
@@ -37,14 +35,15 @@ if(onlineStatus === false ) return <h1> check your internet connection </h1>;
 // ternary operator  ? 
     return listOfRestaurants.length ===  0 ? <Shimmer/> :  (
        <div className="body">
-          <div className="filter">
-            <div className="search">
-               <input type="text" className="search-box" 
+          <div className="filter flex">
+            <div className="search p-4 m-4 ">
+               <input type="text" className=" border border-solid border-black " 
                value={searchText} 
                onChange = {(e) => {
                   setSearchText(e.target.value)
                   }} />
-               <button onClick={() => {
+               <button className=" px-4 py-2 bg-green-200 m-4 rounded-lg "
+               onClick={() => {
                   // filter the restaurant card and update the ui 
                   // earch text 
                   const searchedList =  listOfRestaurants.filter((res) => 
@@ -54,7 +53,8 @@ if(onlineStatus === false ) return <h1> check your internet connection </h1>;
 
                }} > Search </button>
             </div>
-            <button className="filter-btn" 
+            <div className=" p-4 m-4 flex items-center " >
+            <button className="px-4 py-2  bg-gray-200  rounded-lg " 
             // filter logic here 
             onClick={() => {
                const filterList = listOfRestaurants.filter(
@@ -65,9 +65,12 @@ if(onlineStatus === false ) return <h1> check your internet connection </h1>;
             }}>
             Top rated restaurant 
             </button>
+               
+            </div>
+           
             </div>
 
-          <div className="res-container"> 
+          <div className=" flex flex-wrap "> 
           {filteredRestaurant.map((restaurant) => (
            <Link  key={restaurant.info.id} to={"/restaurant/" + restaurant.info.id }><RestaurantCard  resData = {restaurant}/></Link>
           ) )}

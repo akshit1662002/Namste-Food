@@ -12,10 +12,10 @@ class UserClass extends React.Component {
         avatar_url: "",
       },
     };
-     console.log("Child constructor");
+     
   }
   async componentDidMount() {
-     console.log("child Component did mount ");
+     
 
     const data = await fetch("https://api.github.com/users/akshit1662002");
     const json = await data.json();
@@ -29,7 +29,7 @@ class UserClass extends React.Component {
 
   render() {
     const { name, location, avatar_url } = this.state.userinfo;
-    console.log("Child render")
+
     return (
       <div className="user-card">
         <img src={avatar_url} />
