@@ -3,6 +3,7 @@ import Shimmer from "./Shimmer";
 import {useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import RestaurantCategory from "./RestaurantCategory";
+import { useState } from "react";
 
 
 
@@ -10,8 +11,12 @@ const RestaurantMenu = () => {
 
 const {resId} = useParams();
 
+const dummy  =  "dummy data";
+
 // custom hook 
 const resInfo = useRestaurantMenu(resId);
+
+const [showIndex ,  setShowIndex] = useState(null);
 
 
 if(resInfo === null) return <Shimmer /> ;
@@ -34,9 +39,15 @@ resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
             <h2 className="font-bold my-6 text-2xl"> {name}</h2>
             <p className="font-bold text-lg">  {"["}{cuisines.join(" , ")} {"]"}   - {costForTwoMessage} </p>
 
-           
+            {categories.map((category , index ) =>(<RestaurantCategory 
+            key={category?.card?.card?.title}  
+            data = {category?.card?.card}
+            showItems = {index === showIndex ? true : false}
+            setShowIndex = {() => setShowIndex(index)}
+            dummy = {dummy}
 
-            {categories.map((category) =>(<RestaurantCategory key={category?.card?.card?.title}  data = {category?.card?.card} />))}
+
+            />))}
         </div>
     )
 }

@@ -1,8 +1,9 @@
 import RestaurantCard  , {withVegLabel} from "./RestaurantCard";
 import { Link } from "react-router-dom";
-import { useState , useEffect } from "react";
+import { useState , useEffect  , useContext} from "react";
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/userContext";
 
 
 const Body = () =>{
@@ -11,7 +12,7 @@ const [filteredRestaurant , setFilteredRestaurant] = useState([])
 
 const RestaurantCardVeg = withVegLabel(RestaurantCard);
 
-console.log("body render" , listOfRestaurants);
+
 
 const [searchText , setSearchText ] = useState("");
 
@@ -34,6 +35,9 @@ const fetchData = async () => {
 
 const onlineStatus = useOnlineStatus();
 if(onlineStatus === false ) return <h1> check your internet connection </h1>;
+
+const { loggedInUser, setUserName } = useContext(UserContext);
+
 
 
 // ternary operator  ? 
@@ -69,6 +73,15 @@ if(onlineStatus === false ) return <h1> check your internet connection </h1>;
             }}>
             Top rated restaurant 
             </button>
+            <div className="search m-4 p-4 flex items-center">
+          <label htmlFor="name">User Name: </label>
+          <input
+            id="name"
+            className="border border-black p-2"
+            value={loggedInUser}
+            onChange={(e) => setUserName(e.target.value)}
+          />
+        </div>
                
             </div>
            
