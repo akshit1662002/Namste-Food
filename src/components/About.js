@@ -15,10 +15,10 @@ class About extends React.Component {
     }
 
     render(){
-        console.log("Parent render")
+        
         return(
-            <div>
-                <h1> About Page  </h1>
+            <div className="flex">
+                <h1> About Me   </h1>
                 <div>
                     Logged in user : 
                     <UserContext.Consumer>
